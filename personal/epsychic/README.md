@@ -2,7 +2,7 @@
 
 Personal Herdr layout: a model/effort submenu for starting coding agents and a
 Linear Issues panel for reading current-cycle tasks and starting an agent on one.
-Based on Herdr App 0.1.12. Existing official mods are referenced directly.
+Based on Herdr App 0.1.16. Existing official mods are referenced directly.
 
 ## Install
 
@@ -30,28 +30,26 @@ the active + menu uses `epsychic-new-menu/agent-panel.js`.
 
 ## Update from upstream
 
-Keep `master` as an unmodified upstream mirror and personal changes on `epsychic`:
+Keep personal changes on `epsychic`. Set `target_release` to the official release
+tag you want to integrate:
 
 ```sh
-git fetch upstream
-git switch master
-git merge --ff-only upstream/master
-git push origin master
-git switch epsychic
-git rebase master
+git fetch upstream --tags
+target_release=v0.1.16
+git diff v0.1.16 "$target_release" -- defaults/layouts/main.json defaults/mods/tabs defaults/mods/new-menu
 ```
 
-Rebasing updates the official app sources. It does **not** automatically merge
-changes from official mods into these renamed copies. Review those separately:
+Once you have reviewed the changes, merge the release into the personal branch:
 
 ```sh
-git diff v0.1.12 upstream/master -- defaults/layouts/main.json defaults/mods/tabs defaults/mods/new-menu
+git switch epsychic
+git merge "$target_release"
 ```
 
 Copy applicable upstream fixes into the personal files, check each installed mod,
 then verify the + submenu and Issues in the live window before committing and
-deploying. The release baseline is `v0.1.12`
-(`4aa3460749947e7771aa39a8a2cec58d46649926`); update this baseline after fully
+deploying. The release baseline is `v0.1.16`
+(`034f8b85f7e6bb71f8ff55cb4a80c548b2578c0f`); update this baseline after fully
 integrating a later release. Unmodified official mods update with the app.
 
 | Official source | Personal copy | Customization |
